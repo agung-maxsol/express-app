@@ -5,7 +5,7 @@ Express JS App
 
 - install `nodemon` first if it is not installed: `npm install -g nodemon`
 - run: `npm install`
-- run: `nodemon public/index.js`
+- run: `nodemon index.js`
 - check `localhost:3000`
 
 ### Note
