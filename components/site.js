@@ -16,6 +16,9 @@ exports.error = (req, res) => {
   throw new Error('This is an intended error!')
 }
 
+// Clean log from errors if favicon.ico file is not found
+exports.favicon = (req, res) => res.status(204)
+
 exports.notFoundHandler = (req, res, next) => {
   logger.log('error', 'Route not found! Referrer: ' + req.originalUrl)
 

@@ -1,6 +1,12 @@
 const express = require('express')
 const mysql = require('../services/mysql')
+const { check, validationResult } = require('express-validator/check')
 const router = express.Router()
+
+const validateRequest = [
+  check('username', 'The email is not a valid address').isEmail().normalizeEmail().trim().escape(),
+  check('password', 'The password must be 5+ characters long').isLength({ min: 5 })
+]
 
 const getData = (res) => {
   mysql.query('SELECT * FROM test', (err, rows) => {
@@ -18,16 +24,12 @@ const getDataExtended = (res, data) => {
       throw err
     }
 
-    processData(res, data, rows)
-  })
-}
-
-const processData = (res, data, dataExtended) => {
-  res.json({
-    status: true,
-    message: 'Hello world from /test/user!',
-    data: data,
-    dataExtended: dataExtended
+    res.json({
+      status: true,
+      message: 'Hello world from /test/user!',
+      data: data,
+      dataExtended: rows
+    })
   })
 }
 
@@ -61,6 +63,22 @@ router.get('/user', (req, res, next) => {
 
 router.get('/data', (req, res, next) => {
   getAnotherData(res)
+})
+
+router.post('/post', validateRequest, (req, res, next) => {
+  let errors = validationResult(req)
+  let output = {
+    status: true,
+    message: 'Hello world from /test/post!',
+    body: req.body
+  }
+
+  if (!errors.isEmpty()) {
+    output.body = undefined
+    output.errors = errors.array()
+  }
+
+  res.json(output)
 })
 
 module.exports = router

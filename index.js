@@ -39,6 +39,7 @@ app.use(cookieSession({
 //--- Routes collection
 app.get('/', site.index)
 app.get('/error', site.error)
+app.get('/favicon.ico', site.favicon)
 app.use('/test', test) // Route group example
 //--- Routes collection
 

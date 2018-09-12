@@ -14,6 +14,7 @@
     "compression": "^1.7.3",
     "cookie-session": "^2.0.0-beta.3",
     "express": "^4.16.3",
+    "express-validator": "^5.3.0",
     "helmet": "^3.13.0",
     "mysql": "^2.16.0",
     "winston": "^3.0.0"
